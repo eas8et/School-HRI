@@ -34,7 +34,7 @@ names_of_employees = ["Silas"]
 
 guest_response_to_visitor_passes = ["yes", "no"]
 guest_response_to_questions = ["yes", "no"]
-guest_possible_questions = ["bathroom","entrance", "time", "Silas", "package", "lunch", "wifi password", "visitor passes", "phone"]
+guest_possible_questions = ["bathroom","entrance", "time", "Silas", "package", "lunch", "wifi password", "visitor passes", "phone", "what is your name", "how are you"]
 responses_to_guests = {"bathroom": "the bathroom is around the corner",
                        "entrance": "the entrance is behind you",
                        "time": "the time is" + str(datetime.now().time()),
@@ -43,7 +43,9 @@ responses_to_guests = {"bathroom": "the bathroom is around the corner",
                        "lunch": "lunch will be provided at 12:30",
                        "wifi password": "the wifi password is I L O V E F R I E N D L Y", 
                        "visitor passes" : "the visitor passes are right there",
-                       "phone": "the phone is over there"
+                       "phone": "the phone is over there",
+                       "what is your name": "my name is Friendly. It is very nice to meet you.",
+                       "how are you": "I am doing great! Thank you for asking"
 }
 
 employee_responses_to_question = ["yes" "no"]
@@ -138,12 +140,12 @@ def employee_conversation():
     robot_speak_instance.say_words("I know you are an employee this is where I would talk to you")
 
 def guest_conversation():
-    robot_speak_instance.say_words("Hello, what is the reason for your visit?")
-    robot_speak_instance.say_words("Would you like something?")
+    robot_speak_instance.anim_say("Hello, what is the reason for your visit?")
+    robot_speak_instance.anim_say("Would you like something?")
     listen_for_words(guest_response_to_questions)
-    robot_speak_instance.say_words("What would you like?")
+    robot_speak_instance.anim_say("What would you like?")
     listen_for_words(guest_possible_questions)
-    robot_speak_instance.say_words(responses_to_guests[words1_recognition_instance.matched_word])
+    robot_speak_instance.anim_say(responses_to_guests[words1_recognition_instance.matched_word])
     if words1_recognition_instance.matched_word == "phone":
         point_to_phone()
     elif words1_recognition_instance.matched_word == "visitor passes":
@@ -277,7 +279,7 @@ def look_for_faces_code():
         robot_speak_instance.say_words("Hello " + look_for_face_instance.recognized_name)
         name_talking_to = look_for_face_instance.recognized_name
     else:
-        robot_speak_instance.say_words("Hello, why are you visiting the office?")
+        robot_speak_instance.anim_say("Hello, why are you visiting the office?")
         name_talking_to = "Visitor"
 
 
